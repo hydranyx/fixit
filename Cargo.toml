@@ -1,0 +1,7 @@
+[package]
+name = "fixit"
+version = "0.1.0"
+authors = ["Jordis <jordis1995@live.nl>"]
+edition = "2018"
+
+[dependencies]
