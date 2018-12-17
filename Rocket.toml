@@ -1,0 +1,14 @@
+[development]
+log = "normal"
+limits = { forms = 32768 }
+template_dir = "assets/templates"
+
+[staging]
+log = "normal"
+limits = { forms = 32768 }
+template_dir = "assets/templates"
+
+[production]
+log = "critical"
+limits = { forms = 32768 }
+template_dir = "assets/templates"
