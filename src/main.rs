@@ -10,7 +10,7 @@ use std::collections::HashMap;
 #[derive(Serialize)]
 struct TemplateContext {
     name: String,
-    question: String,
+    question: Option<String>,
     answers: Vec<String>,
 }
 
@@ -34,13 +34,13 @@ fn get(name: String) -> Template {
     let context = if let Some((question, answers)) = get_next() {
         TemplateContext {
             name,
-            question,
+            question: Some(question),
             answers,
         }
     } else {
         TemplateContext {
             name,
-            question: "None".to_string(),
+            question: None,
             answers: Vec::new(),
         }
     };
