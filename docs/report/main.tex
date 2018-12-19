@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+\usepackage{minted}
+\usepackage{rotating}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage[margin = 0.7 in]{geometry}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{textcomp}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{pdfpages}
+\usepackage{siunitx}
+\usepackage[english]{babel}
+
+\newcommand{\NB}[0]{\textbf{N.B.~}}
+\newcommand{\tx}[1]{\texttt{#1}}
+
+
+\title{
+  System Report Progress
+}
+\author{
+  J\"{o}rdis Hollander (s2956543)\\
+}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Problem (which task is to be supported? for which users?)}
+
+Anyone who owns a piano for a sufficiently long period of time will know that it
+requires maintenance. However, it is not always clear what kind of maintenance
+is required. If the piano is manifesting a particular problem, from the symptoms
+it may be difficult to determine the best course of action. For example, when a
+piano sounds strange or out of tune it does not mean that a piano tuner is
+required immediately. The condition may be caused by humidity, dust or simply
+the environment the piano is placed in. The condition could also be more serious
+then what could be resolved by a tuner, in which case it would require a
+technician. In the worst case, the piano is not even
+worth repairing relative to its cost. In that case the owner would need advice on
+which movie producer is looking for a piano to demolish in their production.
+The system will support a home owner being able to diagnose their piano's issue
+and to determine their next steps.
+
+\section{Expert (name and description)}
+The expert consulted for the system is a piano technician, by the name of Frank
+Hollander. He was educated by the conservatory in Arnhem in all matters piano.
+He has his own company performing piano tuning, repair and, sales which has been
+active for over 30 years now. He is regularly consulted to provide advice to
+people facing problems with their pianos. His experience allows him to often
+formulate solutions simply from the description of the problem. In more complex
+situations he makes the diagnosis in person.
+
+\section{Role of knowledge technology for the problem}
+Having an expert assist with the diagnosis process will help in determining the
+next step to resolving the problem. Fixes may be trivial (provided knowledge),
+may require a tuner, or a technician. Encoding the knowledge of an expert in a
+knowledge base, will assist in aiding many piano owners. Their process would be
+to consult the knowledge base, answer questions and then determine a guiding
+diagnosis and advice.
+
+
+\section{The knowledge models: problem solving model, domain model, rule model
+  (description and explanation)}
+The model is going to be inference based. The outcome is going to be the
+diagnosis and advice on resolving it. The advice may be a solution that could be
+performed by the client, or to consult a tuner or technician.
+
+\section{User interface, functionality (description, explanation, justification)}
+\section{Walkthrough of a session (explaining the internal and external working
+  of the system)}
+
+\section{Validation of knowledge models (test sessions with expert)}
+\section{Task division among group members}
+My situation is slightly unorthodox as was initially part of another group for
+the majority of the project. In that group I constructed the a basic inference
+engine in Rust, a command line application, handled web hosting, and constructed
+a basic knowledge base.\\
+
+As of my transition to my own group I have handled communication with a new
+expert on my own topic, started on the web templates for interacting with the
+user, refined the inference engine to more properly incorporate backward- and
+forward-chaining and constructed a Dockerfile to ease deployment.\\
+
+However given my topic change I still need to finish constructing the first
+model for the new topic and construct the knowledge base. This will be done
+early in the vacation followed by validation. There are still 2 primary bugs in
+the inference engine that still need to be resolved and will be dealt with when
+the rest of the system is in-place. The web view still needs to be finalized but
+most of interface will completed this week.
+
+\section{Reflection: experiences? role of knowledge technology? problems?
+  evaluation of used techniques? lessons?}
+The reflection process will occur whenever the project nears completion. However
+it has so far been a fun exercise in communication and in programming practice.
+
+\end{document}
