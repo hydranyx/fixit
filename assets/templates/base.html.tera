@@ -2,10 +2,28 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-    <title>Hello World</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="/static/index.css">
+    <title>Fixit!</title>
   </head>
   <body>
-    {% block content %}{% endblock content %}
+    <div class="header">
+      <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="/">FIXIT!</a>
+
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item"><a href="/" class="pure-menu-link">Home</a></li>
+          <li class="pure-menu-item"><a href="#" class="pure-menu-link">Report</a></li>
+        </ul>
+      </div>
+    </div>
   </body>
+
+  {% block content %}{% endblock content %}
+  <div class="footer">
+    <p>
+      Made with <span style="color: #e25555;">&hearts;</span> by Jördis Hollander
+    </p>
+  </div>
 </html>

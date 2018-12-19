@@ -3,6 +3,7 @@
 use inference_engine;
 use rocket::response::Redirect;
 use rocket::{catch, catchers, get, routes, uri, Request};
+use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use serde_derive::Serialize;
 use std::collections::HashMap;
@@ -24,10 +25,21 @@ fn get_next() -> Option<(String, Vec<String>)> {
     }
 }
 
-#[get("/")]
-fn index() -> Redirect {
-    Redirect::to(uri!(get: name = "Unknown"))
+#[get("/index")]
+fn index() -> Template {
+    let map: HashMap<String, String> = HashMap::new();
+    Template::render("index", &map)
 }
+
+#[get("/")]
+fn redirect() -> Redirect {
+    Redirect::to("/index")
+}
+
+// #[get("/")]
+// fn index() -> Redirect {
+//     Redirect::to(uri!(get: name = "Unknown"))
+// }
 
 #[get("/hello/<name>")]
 fn get(name: String) -> Template {
@@ -56,7 +68,11 @@ fn not_found(req: &Request) -> Template {
 
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
-        .mount("/", routes![index, get]) // Attach the routes specified above.
+        .mount("/", routes![redirect, index, get]) // Attach the routes specified above.
+        .mount(
+            "/static",
+            StaticFiles::from(format!("{}/assets/static", env!("CARGO_MANIFEST_DIR"))),
+        )
         .attach(Template::fairing()) // Attach the fairing that automagically reads the templates.
         .register(catchers![not_found]) // Attach the catchers to fire when a particular error is thrown
 }
