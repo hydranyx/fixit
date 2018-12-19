@@ -1,5 +1,6 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
+use inference_engine;
 use rocket::response::Redirect;
 use rocket::{catch, catchers, get, routes, uri, Request};
 use rocket_contrib::templates::Template;
@@ -9,7 +10,18 @@ use std::collections::HashMap;
 #[derive(Serialize)]
 struct TemplateContext {
     name: String,
-    items: Vec<&'static str>,
+    question: String,
+    answers: Vec<String>,
+}
+
+fn get_next() -> Option<(String, Vec<String>)> {
+    let path = "assets/knowledge_base/plumbing_knowledge_base.lms";
+    let inference_engine = inference_engine::prepare().with_knowledge_base_file(path);
+    if let Some(question) = inference_engine.next_question() {
+        Some((question.text, question.choices))
+    } else {
+        None
+    }
 }
 
 #[get("/")]
@@ -19,11 +31,20 @@ fn index() -> Redirect {
 
 #[get("/hello/<name>")]
 fn get(name: String) -> Template {
-    let context = TemplateContext {
-        name,
-        items: vec!["One", "Two", "Three"],
+    let context = if let Some((question, answers)) = get_next() {
+        TemplateContext {
+            name,
+            question,
+            answers,
+        }
+    } else {
+        TemplateContext {
+            name,
+            question: "None".to_string(),
+            answers: Vec::new(),
+        }
     };
-    Template::render("index", &context)
+    Template::render("question", &context)
 }
 
 #[catch(404)] // Replace the default 404 with the definition below.
@@ -41,7 +62,5 @@ fn rocket() -> rocket::Rocket {
 }
 
 fn main() {
-    let path = "assets/knowledge_base/plumbing_knowledge_base.lms";
-    let _inference_engine = inference_engine::prepare().with_knowledge_base_file(path);
     rocket().launch();
 }

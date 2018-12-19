@@ -1,0 +1,10 @@
+{% extends "index" %}
+
+{% block question %}
+    <h3>{{question}}</h3>
+    <form>
+    {% for s in answers %}
+      <button type="submit" formaction="/hello/{{s}}">{{s}}</button>
+    {% endfor %}
+    </form>
+{% endblock question %}
