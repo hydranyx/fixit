@@ -17,11 +17,11 @@ struct TemplateContext {
     answers: Vec<String>,
 }
 
-#[derive(FromForm)]
-struct QuestionAnswerPair {
-    question: String,
-    answer: String,
-}
+// #[derive(FromForm)]
+// struct QuestionAnswerPair {
+//     question: String,
+//     answer: String,
+// }
 
 // fn answer_question(inference_engine: &inference_engine::InferenceEngine, question:&Que)
 
