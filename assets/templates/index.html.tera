@@ -1,16 +1,18 @@
 {% extends "base" %}
 {% block content %}
 <body>
-<div class="splash-container">
+  <div class="splash-container">
     <div class="splash">
-        <h1 class="splash-head">Fixit!</h1>
-        <p class="splash-subhead">
-             Fix what? Your piano, of course!
-        </p>
-        <p>
-            <a href="/hello/test" class="pure-button pure-button-primary">Get Started</a>
-        </p>
+      <h1 class="splash-head">Fixit!</h1>
+
+      <p class="splash-subhead">
+        Fix what? Your piano, of course!
+      </p>
+
+      <p>
+        <a href="/consult" class="pure-button pure-button-primary">Get Started</a>
+      </p>
     </div>
-</div>
+  </div>
 </body>
 {% endblock content %}

@@ -1,11 +1,11 @@
 {% extends "base" %}
 
 {% block content %}
-<!-- <body background="https://i.pinimg.com/originals/19/48/5e/19485e2d6c15e3d7e20fd9dee1d6d4ae.jpg"> -->
-  <body>
-    <h1>Hi {{name}}</h1>
-
-    {% block question %}{% endblock question %}
-    <p>Try going to <a href="/hello/YourName">/hello/YourName</a></p>
-</body>
+<div class="splash-container">
+  <div class="splash">
+    <body>
+      {% block question %}{% endblock question %}
+    </body>
+  </div>
+</div>
 {% endblock content %}

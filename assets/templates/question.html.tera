@@ -1,10 +1,10 @@
 {% extends "ask" %}
 
 {% block question %}
-    <h3>{{question}}</h3>
-    <form>
-    {% for s in answers %}
-        <a href="/hello/{{s}}" class="pure-button pure-button-primary">{{s}}</a>
-    {% endfor %}
-    </form>
+<h3 class="splash-subhead">{{question}}</h3>
+<form>
+  {% for answer in answers %}
+  <a href="/answer?question={{question}}&answer={{answer}}" class="pure-button pure-button-primary">{{answer}}</a>
+  {% endfor %}
+</form>
 {% endblock question %}
