@@ -124,10 +124,7 @@ fn not_found(req: &Request) -> Template {
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
         .mount("/", routes![redirect, index, consult]) // Attach the routes specified above.
-        .mount(
-            "/static",
-            StaticFiles::from(format!("{}/assets/static", env!("CARGO_MANIFEST_DIR"))),
-        )
+        .mount("/static", StaticFiles::from("assets/static"))
         .attach(Template::fairing()) // Attach the fairing that automagically reads the templates.
         .register(catchers![not_found]) // Attach the catchers to fire when a particular error is thrown
 }
