@@ -50,9 +50,13 @@ impl<'f> FromFormValue<'f> for Context {
     }
 }
 
-fn get_next(context: &Option<Context>) -> Option<(Question, Vec<String>)> {
+fn create_inference_engine() -> inference_engine::InferenceEngine {
     let path = "assets/knowledge_base/plumbing_knowledge_base.lms";
-    let mut inference_engine = inference_engine::prepare().with_knowledge_base_file(path);
+    inference_engine::prepare().with_knowledge_base_file(path)
+}
+
+fn get_next(context: &Option<Context>) -> Option<(Question, Vec<String>)> {
+    let mut inference_engine = create_inference_engine();
 
     if let Some(context) = context {
         for (atom, answer) in context.atoms.iter().zip(context.answers.clone()) {
@@ -69,8 +73,7 @@ fn get_next(context: &Option<Context>) -> Option<(Question, Vec<String>)> {
 }
 
 fn get_answer(context: &Option<Context>) -> Option<String> {
-    let path = "assets/knowledge_base/plumbing_knowledge_base.lms";
-    let mut inference_engine = inference_engine::prepare().with_knowledge_base_file(path);
+    let mut inference_engine = create_inference_engine();
 
     if let Some(context) = context {
         for (atom, answer) in context.atoms.iter().zip(context.answers.clone()) {
