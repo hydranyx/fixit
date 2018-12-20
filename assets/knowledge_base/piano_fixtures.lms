@@ -1,0 +1,14 @@
+### Knowledge base plumbing assistant
+### Adapted from work by Leonoor Ellen, Marc Groefsema & Steven Bosch
+### By Jördis Hollander
+
+########## Questions ##########
+
+## Basic questions
+[isPiano]?{Is your troubled instrument a piano? [Yes|No] (piano forte falls under the piano cattegory)}
+
+########## Inferable atoms ##########
+[isNotPiano]!{The system is made for piano problems only! Fixit can not help you.|}
+
+########## Conditional statements ##########
+if(not [isPiano]) then [isNotPiano] end

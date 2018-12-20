@@ -54,7 +54,7 @@ impl<'f> FromFormValue<'f> for Context {
 }
 
 fn create_inference_engine(context: &Option<Context>) -> inference_engine::InferenceEngine {
-    let path = "assets/knowledge_base/plumbing_knowledge_base.lms";
+    let path = "assets/knowledge_base/piano_fixtures.lms";
     let mut inference_engine = inference_engine::prepare().with_knowledge_base_file(path);
     if let Some(context) = context {
         for (atom, answer) in context.atoms.iter().zip(context.selected_answers.clone()) {
@@ -65,7 +65,7 @@ fn create_inference_engine(context: &Option<Context>) -> inference_engine::Infer
     inference_engine
 }
 
-fn get_next(context: &Option<Context>) -> Option<(Question, Vec<String>)> {
+fn get_next_question(context: &Option<Context>) -> Option<(Question, Vec<String>)> {
     let inference_engine = create_inference_engine(context);
 
     if let Some(question) = inference_engine.next_question() {
@@ -98,14 +98,14 @@ fn index() -> Template {
 
 #[get("/consult?<context>")]
 fn consult(context: Option<Context>) -> Template {
-    if let Some((question, answers)) = get_next(&context) {
-        let context = TemplateContext {
+    if let Some((question, answers)) = get_next_question(&context) {
+        let template_context = TemplateContext {
             atom: Some(question.atom.text),
             question: Some(question.text),
             answers,
             context,
         };
-        Template::render("question", &context)
+        Template::render("question", &template_context)
     } else {
         let mut template_context = HashMap::new();
         template_context.insert("answer", get_answer(&context));
