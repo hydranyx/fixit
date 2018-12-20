@@ -4,7 +4,12 @@
 <h3 class="splash-subhead">{{question}}</h3>
 <form>
   {% for answer in answers %}
-  <a href="/answer?question={{question}}&answer={{answer}}" class="pure-button pure-button-primary">{{answer}}</a>
+  {% if context %}
+  <a href="/consult?context={% for atom in context.atoms %}{{atom}}:{{context.answers[loop.index0]}} {% endfor %}{{atom}}:{{answer}}"
+     class="pure-button pure-button-primary">{{answer}}</a>
+  {% else %}
+  <a href="/consult?context={{atom}}:{{answer}}" class="pure-button pure-button-primary">{{answer}}</a>
+  {% endif %}
   {% endfor %}
 </form>
 {% endblock question %}

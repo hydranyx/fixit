@@ -1,0 +1,20 @@
+{% extends "base" %}
+{% block content %}
+<body>
+  <div class="splash-container">
+    <div class="splash">
+      {% if answer %}
+      <h1 class="splash-head">{{answer}}</h1>
+      <p class="splash-subhead">
+        I hope this helps!
+      </p>
+      {% else %}
+      <h1 class="splash-head">I have no advice to give.</h1>
+      <p class="splash-subhead">
+        I'm so sorry.
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+{% endblock content %}
