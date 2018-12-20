@@ -5,12 +5,12 @@
 ########## Questions ##########
 
 ## Basic questions
-[isPiano]?{Is your troubled instrument a piano? [Yes|No] (piano forte falls under the piano cattegory)}
+[isPiano]?{Is your troubled instrument a piano? [Yes|No] (Piano forte falls under the piano category)}
 
 ########## Inferable atoms ##########
 [isNotPiano]!{The system is made for piano problems only. Fixit can not help you.|}
-[isaPiano]!{Then fixit can help you.}
+[isAPiano]!{Then fixit can help you.|}
 
 ########## Conditional statements ##########
-if(not [isPiano]) then [isNotPiano] end
-if [isPiano] then [isaPiano] end
+if((not [isPiano])) then [isNotPiano] end
+if([isPiano]) then [isAPiano] end
