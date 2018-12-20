@@ -21,7 +21,7 @@ struct TemplateContext {
 #[derive(Serialize, Debug, Default)]
 struct Context {
     atoms: Vec<String>,
-    answers: Vec<String>,
+    selected_answers: Vec<String>,
 }
 
 impl<'f> FromFormValue<'f> for Context {
@@ -30,7 +30,7 @@ impl<'f> FromFormValue<'f> for Context {
         match item.percent_decode() {
             Ok(context) => {
                 let mut atoms = Vec::new();
-                let mut answers = Vec::new();
+                let mut selected_answers = Vec::new();
                 for pairs in context.split_whitespace() {
                     let mut iter = pairs.split(':').filter(|&w| w != "");
                     let atom = iter.next();
@@ -38,32 +38,35 @@ impl<'f> FromFormValue<'f> for Context {
 
                     if let (Some(atom), Some(answer)) = (atom, answer) {
                         atoms.push(atom.to_string());
-                        answers.push(answer.to_string());
+                        selected_answers.push(answer.to_string());
                     } else {
                         return Err(());
                     }
                 }
-                Ok(Context { atoms, answers })
+                Ok(Context {
+                    atoms,
+                    selected_answers,
+                })
             }
             Err(_) => Err(()),
         }
     }
 }
 
-fn create_inference_engine() -> inference_engine::InferenceEngine {
+fn create_inference_engine(context: &Option<Context>) -> inference_engine::InferenceEngine {
     let path = "assets/knowledge_base/plumbing_knowledge_base.lms";
-    inference_engine::prepare().with_knowledge_base_file(path)
-}
-
-fn get_next(context: &Option<Context>) -> Option<(Question, Vec<String>)> {
-    let mut inference_engine = create_inference_engine();
-
+    let mut inference_engine = inference_engine::prepare().with_knowledge_base_file(path);
     if let Some(context) = context {
-        for (atom, answer) in context.atoms.iter().zip(context.answers.clone()) {
+        for (atom, answer) in context.atoms.iter().zip(context.selected_answers.clone()) {
             let atom = Atom::new(atom.clone());
             inference_engine.add_state(atom, &answer);
         }
     }
+    inference_engine
+}
+
+fn get_next(context: &Option<Context>) -> Option<(Question, Vec<String>)> {
+    let inference_engine = create_inference_engine(context);
 
     if let Some(question) = inference_engine.next_question() {
         Some((question.clone(), question.choices))
@@ -73,14 +76,7 @@ fn get_next(context: &Option<Context>) -> Option<(Question, Vec<String>)> {
 }
 
 fn get_answer(context: &Option<Context>) -> Option<String> {
-    let mut inference_engine = create_inference_engine();
-
-    if let Some(context) = context {
-        for (atom, answer) in context.atoms.iter().zip(context.answers.clone()) {
-            let atom = Atom::new(atom.clone());
-            inference_engine.add_state(atom, &answer);
-        }
-    }
+    let inference_engine = create_inference_engine(context);
 
     if let Some(answer) = inference_engine.reached_goal() {
         Some(answer.text)
