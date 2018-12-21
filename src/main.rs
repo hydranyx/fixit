@@ -19,6 +19,9 @@ struct TemplateContext {
 }
 
 #[derive(Serialize, Debug, Default)]
+/// Context on the current answered questions
+/// For each atom in `atoms` there is a corresponding answer at the same index
+/// in `selected_answers`.
 struct Context {
     atoms: Vec<String>,
     selected_answers: Vec<String>,
