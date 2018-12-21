@@ -1,4 +1,4 @@
-### Knowledge base piano assistant
+### Knowledge base piano demo assistant
 ### Adapted from work by Leonoor Ellen, Marc Groefsema & Steven Bosch
 ### By Jördis Hollander
 
@@ -10,11 +10,6 @@
 [recentlyTuned]?{Has the piano been tuned less then half a year ago?[Yes|No](note, make sure to ask the average timeframe for tuning)}
 [recentlyMoved]? {Has your piano recently been moved? [Yes|No] ()}
 [environmentChanged]?{Did the environment in which the piano resides, change lately with respect to temperature or humidity? [Yes|No] (find other examples) }
-[isTooLoud]?{Is the sound of your piano instantly too loud? [Yes|No] (Without using pedals)}
-[isTooQuiet]?{Is the sound of your piano instantly too quiet? [Yes|No] (even with using pedals)}
-[damperPedalDamaged]?{Is the damper, right side pedal, visibly damaged or stuck? [Yes|No]()}
-[softPedalDamaged]?{Is the soft pedal, left side pedal, visibly damaged? [Yes|No]()}
-[softPedalStuck]?{Is the soft pedal, left side pedal, stuck at its place? [Yes|No](this can only happen to the soft pedal)}
 
 ########## Inferable atoms ##########
 [isNotPiano]!{The system is made for piano problems only. Fixit can not help you.|}
@@ -23,11 +18,6 @@
 [needTuner]!{In this case you need a tuner.|}
 [adjustEnvironment]!{In case of change in humidity get humidifier. If the temperature is the cause, adjust it and the check tune again.|}
 [unlearTunerOrEnvironment]!{Wait until environmnet is stabalized in the room the piano is in before calling a tuner.|}
-[callTechnicianRegardingPedal]!{If it is stuck then apply some oil to the pedal hinges if you can otherwise call a technician.|}
-[tryEarpluggs]!{Try earpluggs.|}
-[playLouder]!{Try playing louder and if that does not help call a technician|}
-[isaStuckSoftPedal]!{Remove the soft pedal from under the holder.|}
-[adjustYourPlayingBetter]!{There is nothing wrong with your piano, practice is key.|}
 
 ########## Conditional statements ##########
 if((not [isPiano])) then [isNotPiano] end
@@ -35,9 +25,3 @@ if([hasTuneProblem] and [recentlyMoved]) then [tunerNeededPostAclimatizing] end
 if([hasTuneProblem] and (not [recentlyTuned])) then [needTuner] end
 if([hasTuneProblem] and [environmentChanged] and [recentlyTuned]) then [adjustEnvironment] end
 if([hasTuneProblem] and [environmentChanged] and (not [recentlyTuned])) then [unlearTunerOrEnvironment] end
-if([isTooLoud] and [damperPedalDamaged] or [isTooQuiet] and [softPedalDamaged]) then [callTechnicianRegardingPedal] end
-if([isTooLoud] and (not [damperPedalDamaged])) then [tryEarpluggs] end
-if([isTooQuiet] and (not [softPedalDamaged]) and (not [softPedalStuck])) then [playLouder] end
-if([isTooQuiet] and [softPedalStuck]) then [isaStuckSoftPedal] end
-if([isTooLoud] and [isTooQuiet]) then [adjustYourPlayingBetter] end
-
