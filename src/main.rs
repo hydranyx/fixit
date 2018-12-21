@@ -57,7 +57,7 @@ impl<'f> FromFormValue<'f> for Context {
 }
 
 fn create_inference_engine(context: &Option<Context>) -> inference_engine::InferenceEngine {
-    let path = "assets/knowledge_base/piano_fixtures.lms";
+    let path = "assets/knowledge_base/piano_fixtures_demo.lms";
     let mut inference_engine = inference_engine::prepare().with_knowledge_base_file(path);
     if let Some(context) = context {
         for (atom, answer) in context.atoms.iter().zip(context.selected_answers.clone()) {

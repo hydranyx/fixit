@@ -1,0 +1,26 @@
+### Knowledge base piano demo assistant
+### Adapted from work by Leonoor Ellen, Marc Groefsema & Steven Bosch
+### By Jördis Hollander
+
+########## Questions ##########
+
+## Basic questions
+[hasTuneProblem]?{Is your problem regarding the tune? [Yes|No] ()}
+[recentlyTuned]?{Has the piano been tuned less then half a year ago?[Yes|No](note, make sure to ask the average timeframe for tuning)}
+[environmentChanged]?{Did the environment in which the piano resides, change lately? [Yes|No] (find other examples) }
+
+########## Inferable atoms ##########
+[tunerNeededPostAclimatizing]!{Either aclimatize for two weeks and call a tuner or adjust the environment back to it's original state.|}
+[needTuner]!{In this case you need a tuner.|}
+[adjustEnvironment]!{In case of change in humidity get humidifier. If the temperature is the cause, adjust it and the check tune again.|}
+[unclearTunerOrEnvironment]!{Stabilize the environment of the piano and call a tuner.|}
+[callTechnician]!{Call technician.|}
+
+########## Conditional statements ##########
+if(( not [hasTuneProblem] )) then [callTechnician] end
+if([hasTuneProblem] and [environmentChanged]) then [tunerNeededPostAclimatizing] end
+if([hasTuneProblem] and [environmentChanged] and ( not [recentlyTuned] )) then [unclearTunerOrEnvironment] end
+if([hasTuneProblem] and [environmentChanged] and [recentlyTuned]) then [adjustEnvironment] end
+if([hasTuneProblem] and ( not [environmentChanged] ) and [recentlyTuned]) then [callTechnician] end
+if([hasTuneProblem] and ( not [environmentChanged] ) and ( not [recentlyTuned] )) then [needTuner] end
+
