@@ -18,7 +18,6 @@
 
 ########## Inferable atoms ##########
 [isNotPiano]!{The system is made for piano problems only. Fixit can not help you.|}
-##[isAPiano]!{Then fixit can help you.|}
 [dempersRuined]!{Call a technician, the dampers or silencing mechanism in your piano is mostelikely been damaged.|}
 [tunerNeededPostAclimatizing]!{Every piano needs tuning after placing it in a new place, however let it aclimatize first for two weeks.|}
 [needTuner]!{In this case you need a tuner.|}
@@ -32,14 +31,13 @@
 
 ########## Conditional statements ##########
 if((not [isPiano])) then [isNotPiano] end
-## if([isPiano]) then [isAPiano] end
 if([hasTuneProblem] and [recentlyMoved]) then [tunerNeededPostAclimatizing] end
-if([hasTuneProblem] and (not [recentlyTuned]) then [needTuner] end
+if([hasTuneProblem] and (not [recentlyTuned])) then [needTuner] end
 if([hasTuneProblem] and [environmentChanged] and [recentlyTuned]) then [adjustEnvironment] end
 if([hasTuneProblem] and [environmentChanged] and (not [recentlyTuned])) then [unlearTunerOrEnvironment] end
-if(([isTooLoud] and [damperPedalDamaged]) or ([isTooQuiet] and [softPedalDamaged])) then [callTechnicianRegardingPedal] end
-## if([isTooQuiet] and [softPedalDamaged]) then [callTechnicianRegardingPedal]
+if([isTooLoud] and [damperPedalDamaged] or [isTooQuiet] and [softPedalDamaged]) then [callTechnicianRegardingPedal] end
 if([isTooLoud] and (not [damperPedalDamaged])) then [tryEarpluggs] end
 if([isTooQuiet] and (not [softPedalDamaged]) and (not [softPedalStuck])) then [playLouder] end
 if([isTooQuiet] and [softPedalStuck]) then [isaStuckSoftPedal] end
 if([isTooLoud] and [isTooQuiet]) then [adjustYourPlayingBetter] end
+
