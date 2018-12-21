@@ -5,23 +5,22 @@
 ########## Questions ##########
 
 ## Basic questions
-[isPiano]?{Is your troubled instrument a piano? [Yes|No] (piano forte falls under the piano category)}
 [hasTuneProblem]?{Is your problem regarding the tune? [Yes|No] ()}
 [recentlyTuned]?{Has the piano been tuned less then half a year ago?[Yes|No](note, make sure to ask the average timeframe for tuning)}
-[recentlyMoved]? {Has your piano recently been moved? [Yes|No] ()}
-[environmentChanged]?{Did the environment in which the piano resides, change lately with respect to temperature or humidity? [Yes|No] (find other examples) }
+[environmentChanged]?{Did the environment in which the piano resides, change lately? [Yes|No] (find other examples) }
 
 ########## Inferable atoms ##########
-[isNotPiano]!{The system is made for piano problems only. Fixit can not help you.|}
-[dempersRuined]!{Call a technician, the dampers or silencing mechanism in your piano is mostelikely been damaged.|}
-[tunerNeededPostAclimatizing]!{Every piano needs tuning after placing it in a new place, however let it aclimatize first for two weeks.|}
+[tunerNeededPostAclimatizing]!{Either aclimatize for two weeks and call a tuner or adjust the environment back to it's original state.|}
 [needTuner]!{In this case you need a tuner.|}
 [adjustEnvironment]!{In case of change in humidity get humidifier. If the temperature is the cause, adjust it and the check tune again.|}
-[unlearTunerOrEnvironment]!{Wait until environmnet is stabalized in the room the piano is in before calling a tuner.|}
+[unclearTunerOrEnvironment]!{Stabilize the environment of the piano and call a tuner.|}
+[callTechnician]!{Call technician.|}
 
 ########## Conditional statements ##########
-if((not [isPiano])) then [isNotPiano] end
-if([hasTuneProblem] and [recentlyMoved]) then [tunerNeededPostAclimatizing] end
-if([hasTuneProblem] and (not [recentlyTuned])) then [needTuner] end
+if(( not [hasTuneProblem] )) then [callTechnician] end
+if([hasTuneProblem] and [environmentChanged]) then [tunerNeededPostAclimatizing] end
+if([hasTuneProblem] and [environmentChanged] and ( not [recentlyTuned] )) then [unclearTunerOrEnvironment] end
 if([hasTuneProblem] and [environmentChanged] and [recentlyTuned]) then [adjustEnvironment] end
-if([hasTuneProblem] and [environmentChanged] and (not [recentlyTuned])) then [unlearTunerOrEnvironment] end
+if([hasTuneProblem] and ( not [environmentChanged] ) and [recentlyTuned]) then [callTechnician] end
+if([hasTuneProblem] and ( not [environmentChanged] ) and ( not [recentlyTuned] )) then [needTuner] end
+
