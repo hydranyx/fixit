@@ -15,26 +15,26 @@ questions:
     choices:
       - Yes
       - No
-    description: "either all or some are not 'aansluitend' adjoint/ subsequently in quality of sound and loudness"
+    description: "either all or some are not subsequently in quality of sound and loudness"
   - atom:
       text: keysUnevenFeel
-    text: Does the touch of some keys not feel right or even?
+    text: Do some keys feel not right to the touch?
     choices:
       - Yes
       - No
-    description: (possible friction in movement or an uncomfortable weight of the keys)
+    description: possible friction in movement or an uncomfortable weight of the keys
   - atom:
       text: galm
     text: "After letting go the keys, the sound won't stop/mute?"
     choices:
-      - Yes
-      - No
-    description: "galm, geluid klinkt door/ dempt niet"
+      - true
+      - false
+    description: "reverberation, sound rings through/ doesn't mute"
 
   ## Questions Quality of Piano
   - atom:
       text: optimumBrandPiano
-    text: What is your brand?
+    text: What is the quality of your brand?
     choices:
       - optimum
       - suboptimum
@@ -47,7 +47,7 @@ questions:
       - 2
       - 30
       - 35 ## TODO Change to <2 < 30 and > or equal to 30
-    description: "Choose the closest age"
+    description: "Choose the closest age."
 
   ## Question Type of Piano
   - atom:
@@ -56,26 +56,26 @@ questions:
     choices:
       - upright
       - grand
-    description: example picture uprights vs grands
+    description: ""
 
   ## Question Reverberation
   - atom:
       text: grandHangingDampers
-    text: "instruction: look at the dampers inside piano, push down right pedal and check if all dampers image pressed damper grand move up in line together. Question: are they moving up in line together?  some are lagging or do not touch the strings anymore"
+    text: "Instruction: look at the dampers inside piano, push down right pedal and check if all dampers move up in line together. Question: Are they moving up in line together?"
     choices:
       - Yes
       - No
-    description: in case of no we have the problem of hanging dampers
+    description: "If some are lagging or do not touch the strings anymore, the answer is No."
   - atom:
       text: uprightHangingDampers
     text: "instruction: open the upper lid, push down and release right pedal, while you look if all dampers are connected to the strings. Question: are they moving up in line together?"
     choices:
       - Yes
       - No
-    description: "some are lagging, do not touch the strings anymore or damaged"
+    description: " If some are lagging and do not touch the strings anymore or are damaged, the answer is No."
   - atom:
       text: damagedDampers
-    text: "instruction: open the upper lid, push down and release right pedal, while you look if all dampers are connected to the strings.Question: are there any damaged or missing dampers photo of working damper?"
+    text: "Instruction: open the upper lid, push down and release right pedal, while you look if all dampers are connected to the strings. Question: Are there any damaged or missing dampers?"
     choices:
       - Yes
       - No
@@ -84,18 +84,18 @@ questions:
   ## Question Pedal
   - atom:
       text: uprightPedalSetting
-    text: "instruction: open lower board, give vleugelmoer A twist to the left and check sound. Question: Did the sound improve?"
+    text: "Instruction: open lower board, give the screw a twist to the left and check sound. Question: Did the sound improve?"
     choices:
       - Yes
       - No
-    description: "Yes: het was de pedaal afstelling, No then check if damper is missing or damaged in case it has not been done yet"
+    description: ""
   - atom:
       text: lostMotion
-    text: "instruction: look inside the piano at the dampers. While you are doing that put your foot on the pedal and press the pedal slightly downwards. Question: Did you see any response in the form of movement of the dampers directly after you interacted with the pedal?"
+    text: "Instruction: look inside the piano at the dampers. While you are doing that put your foot on the pedal and press the pedal slightly downwards. Question: Did you see any response in the form of movement of the dampers directly after you interacted with the pedal?"
     choices:
       - Yes
       - No
-    description: if the answer is yes then there is lost motion and then the problem is grandPedalSetting
+    description: ""
 
   ## Questions Out of Tune
   - atom:
@@ -115,35 +115,35 @@ questions:
     description: ""
   - atom:
       text: climateUncontinuous
-    text: Is the climate in the room the piano resides in continuous/unchanged with respect to temperature and humidity?
+    text: Is the climate, in the room the piano resides in, continuous/unchanged with respect to temperature and humidity?
     choices:
       - Yes
       - No
-    description: ""
+    description: "If the temperature and/or humidity of the room has notiseably changed recently or is drastically changing throughout a period of a week, the answer is No."
   - atom:
       text: roomTooCold
     text: Is the room too warm or too cold?
     choices:
       - warm
       - cold
-    description: "too warm: >40 Celcius or if it feels too humid in the room, too cold: <6 Celcius, then too dry"
+    description: "too warm: >35 Celcius or if it feels too humid in the room, too cold: <6 Celcius, then too dry"
   - atom:
       text: dryBudgetOptimum
     text: What is your budget for solving the problem?
     choices:
       - 150 EUR
       - 650 EUR
-    description: "keep in mind: higher price gives better solution which in case of an expensive instrument gives better protection to losing quality"
+    description: "Keep in mind: higher price gives better solution which in case of an expensive instrument gives better protection to losing quality."
   - atom:
       text: dryBudgetSubOptimumUpright
     text: What is your budget for solving the problem?
     choices:
       - 2 EUR
       - 150 EUR
-    description: "in case of low upright advice is automatically 2 EUR"
+    description: ""
   - atom:
       text: damageDueToNature
-    text: "instruction: open up the piano and look inside at various places. Question: Is there a visible water damage, mold or rust?"
+    text: "Instruction: open up the piano and look inside at various places. Question: Is there a visible water damage, mold or rust?"
     choices:
       - Yes
       - No
@@ -157,7 +157,7 @@ questions:
     description: ""
   - atom:
       text: checkMothsAndMiceDamage
-    text: "instruction: if you have an upright piano open up upper lid and look at the felt. If you have a grand piano just look inside at the felt of the piano. Question: Do you see damage with this felt?"
+    text: "Instruction: if you have an upright piano open up upper lid and look at the felt. If you have a grand piano just look inside the piano at the felt. Question: Do you see any damage with this felt?"
     choices:
       - Yes
       - No
@@ -166,28 +166,28 @@ questions:
   ## Question Uneven Key Feel
   - atom:
       text: downwardHangingKeys
-    text: There is or are some keys that are hanging half in the downward direction?
+    text: There are some keys that are hanging half in the downward direction?
     choices:
-      - Yes
-      - No
-    description: picture for description
+      - true
+      - false
+    description: ""
   - atom:
       text: tooHumid
-    text: Might it be possible that the room in which the instrument resides be too humid?
+    text: Might it be possible that the room in which the instrument resides is too humid?
     choices:
       - Yes
       - No
-    description: if Yes ask what type of piano
+    description: "If it is too humid it often also is the case that it is very warm. It could be near 35 Celcius or more."
   - atom:
       text: tooHighFriction
     text: Is there a too high of a friction while pressing the keys?
     choices:
       - Yes
       - No
-    description: but no sound issues
+    description: ""
   - atom:
       text: moveDownwardFix
-    text: "instruction for possible fix: Move key up and downward while you either press to the left side or to the right side. Do both sides. Question: Did the friction clear up and solve the problem?"
+    text: "Instruction for possible fix: Move key up and downward while you either press to the left side or to the right side. Do both sides. Question: Did the friction clear up and solve the problem?"
     choices:
       - Yes the friction cleared up and solved the problem
       - Yes the friction cleared up but did not solve the problem
@@ -196,27 +196,26 @@ questions:
   - atom:
       text: tooHeavyOrLightFeel
     text: Do some keys feel to heavy and/or to light in touch?
-    type: float
     choices:
       - Yes
       - No
-    description: ask question after the other sections if possible for a clearer result
+    description: "So if the keys either feel too heavy or too light, the answer is Yes."
 
   ## Question Combined Complaint of uneven sound and feel
   - atom:
       text: touchingHammersGrand
-    text: "instruction: look inside the piano and see whether there are two hammers that are touching. Question: are they?"
+    text: "Instruction: look inside the piano and see whether there are two hammers that are touching. Question: are they touching?"
     choices:
       - Yes
       - No
     description: photo with description of two hammers touching
   - atom:
       text: touchingHammersUpright
-    text: "instruction: open the upper lid and see whether two happens are touching. Question: Are they?"
+    text: "Instruction: open the upper lid and see whether two hammers are touching. Question: Are they touching?"
     choices:
       - Yes
       - No
-    description: ""
+    description: photo of two hammers touching
 
 # INFERENCES/GOALS
 inferences:
