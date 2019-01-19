@@ -4,11 +4,11 @@ questions:
   ## Questions Complaints
   - atom:
       text: outOfTune
-    text: Is the piano entirely out of tune?
+    text: Is the piano out of tune?
     choices:
       - Yes
       - No
-    description: "All sections are out of tune: bass, middle, treble"
+    description: "Bass, middle, treble or a combination of sections sounding out of tune means the answer is Yes."
   - atom:
       text: keysUnevenSound
     text: Do the keys have an uneven sound?
@@ -18,13 +18,13 @@ questions:
     description: "either all or some are not subsequently in quality of sound and loudness"
   - atom:
       text: keysUnevenFeel
-    text: Do some keys feel not right to the touch?
+    text: Some keys feel irregular to touch?
     choices:
-      - Yes
-      - No
+      - true
+      - false
     description: possible friction in movement or an uncomfortable weight of the keys
   - atom:
-      text: galm
+      text: reverberation
     text: "After letting go the keys, the sound won't stop/mute?"
     choices:
       - true
@@ -39,7 +39,7 @@ questions:
       - optimum
       - suboptimum
       - other
-    description: "Optimum: Steinway, Bechstein, Boesendorfer, Fazioli, Steingraeber. Suboptimum: Ibach, Grotrian-Steinweg, Seiler, Sauter, Theurmer, Pfeiffer"
+    description: "Optimum: Steinway, Bechstein, Bösendorfer, Fazioli, Steingraeber. Suboptimum: Ibach, Grotrian-Steinweg, Seiler, Sauter, Theürmer, Pfeiffer"
   - atom:
       text: agePiano
     text: How old is your piano (in years)
@@ -115,25 +115,26 @@ questions:
     description: ""
   - atom:
       text: climateUncontinuous
-    text: Is the climate, in the room the piano resides in, continuous/unchanged with respect to temperature and humidity?
+    text: Is the climate, in the room of the piano, continuous/unchanged with respect to temperature and humidity?
     choices:
       - Yes
       - No
     description: "If the temperature and/or humidity of the room has notiseably changed recently or is drastically changing throughout a period of a week, the answer is No."
   - atom:
       text: roomTooCold
-    text: Is the room too warm or too cold?
+    text: Has the room recently been too warm or too cold?
     choices:
       - warm
       - cold
-    description: "too warm: >35 Celcius or if it feels too humid in the room, too cold: <6 Celcius, then too dry"
+      - neither
+    description: ""
   - atom:
       text: dryBudgetOptimum
     text: What is your budget for solving the problem?
     choices:
       - 150 EUR
       - 650 EUR
-    description: "Keep in mind: higher price gives better solution which in case of an expensive instrument gives better protection to losing quality."
+    description: "Keep in mind: higher price gives better solution which in case of an expensive instrument gives better protection against losing quality of the instrument."
   - atom:
       text: dryBudgetSubOptimumUpright
     text: What is your budget for solving the problem?
@@ -180,14 +181,14 @@ questions:
     description: "If it is too humid it often also is the case that it is very warm. It could be near 35 Celcius or more."
   - atom:
       text: tooHighFriction
-    text: Is there a too high of a friction while pressing the keys?
+    text: Is there too much friction while pressing the keys?
     choices:
       - Yes
       - No
     description: ""
   - atom:
       text: moveDownwardFix
-    text: "Instruction for possible fix: Move key up and downward while you either press to the left side or to the right side. Do both sides. Question: Did the friction clear up and solve the problem?"
+    text: "Instruction for possible fix: Move key up and downward while you either press to the left side or to the right side. Apply this movement and pressure to both sides. Question: Did the friction clear up and solve the problem?"
     choices:
       - Yes the friction cleared up and solved the problem
       - Yes the friction cleared up but did not solve the problem
@@ -245,7 +246,7 @@ inferences:
     text: "The room your instrument resides in is too dry. Open the lower lid of your piano and inside the piano, mostly on the right there is space to place 1 or more open bottles filled with water. This will humidify the inside of the piano. Check after a period whether you need to refill the bottles with more water."
   - atom:
       text: acclimatize
-    text: You need to acclimatize the instrument for about 2 weeks since it recently has been through an environmental change of circumstances. After this normalization your piano probably still is out of tune so advised it is to call a tuner.
+    text: You need to acclimatize the instrument for about 5 weeks since it recently has been through an environmental change of circumstances. After this normalization your piano probably is still out of tune. Call a tuner.
   - atom:
       text: airDeHumidifiers
     text: The air in the room is too humid. If it is not possible to relocate the piano in a less humid room one is advised to find a way to make the room less humid. The quality of the piano will probably decrease if the circumstances of the environment do not change. Simple tuning the piano will not solve the problem because in a short period the piano will be out of tune again. A possible decrease for the problem would be to get air dehumidifiers for the room.
@@ -292,159 +293,164 @@ inferences:
 # CONDITIONALS/RULES
 conditionals:
   ## Out of Tune Rules
-  - guard: "[outOfTune] and [optimumBrandPiano] == 'other' and [agePiano] >= 30 and [previousTuning] >= 6"
+  - guard: "[outOfTune] && [optimumBrandPiano] == 'other' && [agePiano] >= 30 && [previousTuning] == '<6 months'"
     result:
       text: callSalesman
-  - guard: "[outOfTune] and [optimumBrandPiano] == 'optimum' or [optimumBrandPiano] == 'suboptimum' and [agePiano] >=30 and [previousTuning] >=6"
+  - guard: "[outOfTune] && [optimumBrandPiano] == 'optimum' || [optimumBrandPiano] == 'suboptimum' && [agePiano] >=30 && [previousTuning] == '<6 months'"
     result:
       text: generalRepair
-  - guard: "[outOfTune] and [agePiano] < 30 and [previousTuning] >= 6"
+  - guard: "[outOfTune] && [agePiano] < 30 && [previousTuning] == '> || equal to 6 months'"
     result:
       text: callTuner
-  - guard: "[outOfTune] and [agePiano] < 2 and [previousTuning] < 6"
+  - guard: "[outOfTune] && [agePiano] < 2 && [previousTuning] == '<6 months'"
     result:
       text: callTuner
 
   ## Recent Movement Rules
-  - guard: "[outOfTune] and [recentlyMoved]"
+  - guard: "[outOfTune] && [recentlyMoved]"
     result:
       text: acclimatize
 
 
   ## Climate Too Cold Grand Optimum/Suboptimum 650/150
-  - guard: "[outOfTune] and [climateUncontinuous] and [roomTooCold] and [grandPiano] == 'grand' and ([optimumBrandPiano] == 'optimum' or [optimumBrandPiano] == 'suboptimum') and [dryBudgetOptimum] == 150)"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'grand' && ([optimumBrandPiano] == 'optimum' || [optimumBrandPiano] == 'suboptimum') && [dryBudgetOptimum] == 150)"
     result:
       text: humidifier
-  - guard: "[outOfTune] and [climateUncontinuous] and [roomTooCold] == 'cold' and [grandPiano] == 'grand' and ([optimumBrandPiano] == 'optimum]' or [optimumBrandPiano] == 'suboptimum') and [dryBudgetOptimum] == 650"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] == 'cold' && [grandPiano] == 'grand' && ([optimumBrandPiano] == 'optimum]' || [optimumBrandPiano] == 'suboptimum') && [dryBudgetOptimum] == 650"
     result:
       text: climateSystem
 
   ## Climate Too Cold Grand Other
-  - guard: "[outOfTune] and [climateUncontinuous] and [roomTooCold]) and [grandPiano] == 'grand' and [optimumBrandPiano] == 'other'"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold]) && [grandPiano] == 'grand' && [optimumBrandPiano] == 'other'"
     result:
       text: humidifier
 
   ## Climate Too Cold Upright Optimum  
-  - guard: "[outOfTune] and [climateUncontinuous] and [roomTooCold] and [grandPiano] == 'upright' and [optimumBrandPiano] == 'optimum' and [dryBudgetOptimum] == 650"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'upright' && [optimumBrandPiano] == 'optimum' && [dryBudgetOptimum] == 650"
     result:
       text: climateSystem
-  - guard: "[outOfTune] and [climateUncontinuous] and [roomTooCold] and [grandPiano]=='upright' and [optimumBrandPiano] == 'optimum' and [dryBudgetOptimum] == 150"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano]=='upright' && [optimumBrandPiano] == 'optimum' && [dryBudgetOptimum] == 150"
     result:
       text: humidifier
 
-  ## Climate Too Cold Upright Suboptimum and Other
-  - guard: "[outOfTune] and [climateUncontinuous] and [roomTooCold] == 'cold' and [grandPiano] == 'upright' and [optimumBrandPiano] == 'suboptimum' and [dryBudgetSubOptimumUpright] == 150"
+  ## Climate Too Cold Upright Suboptimum && Other
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] == 'cold' && [grandPiano] == 'upright' && [optimumBrandPiano] == 'suboptimum' && [dryBudgetSubOptimumUpright] == 150"
     result:
       text: humidifier
-  - guard: "[outOfTune] and [climateUncontinuous] and [roomTooCold] and [grandPiano] == 'upright' and [optimumBrandPiano] == 'suboptimum' and [dryBudgetSubOptimumUpright] == 2"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'upright' && [optimumBrandPiano] == 'suboptimum' && [dryBudgetSubOptimumUpright] == 2"
     result:
       text: waterBottle
-  - guard: "[outOfTune] and [climateUncontinuous] and [roomTooCold] and [grandPiano] == 'upright' and [optimumBrandPiano] == 'other'"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'upright' && [optimumBrandPiano] == 'other'"
     result:
       text: waterBottle
 
   ## Climate Too Warm
-  - guard: "[outOfTune] and [climateUncontinuous] and (not [roomTooCold]) and [optimumBrandPiano] == 'optimum'"
+  - guard: "[outOfTune] && [climateUncontinuous] && (! [roomTooCold]) && [optimumBrandPiano] == 'optimum'"
     result:
       text: climateSystem
-  - guard: "[outOfTune] and [climateUncontinuous] and (not [roomTooCold]) and ([optimumBrandPiano] == 'suboptimum' or [optimumBrandPiano] == 'other')"
+  - guard: "[outOfTune] && [climateUncontinuous] && (! [roomTooCold]) && ([optimumBrandPiano] == 'suboptimum' || [optimumBrandPiano] == 'other')"
     result:
       text: airDeHumidifiers
 
   ## Natural Damage
-  - guard: "[outOfTune] and [damageDueToNature]"
+  - guard: "[outOfTune] && [damageDueToNature]"
     result:
       text: naturalDamage
-  - guard: "[outOfTune] and [mothsAndMice] and [checkMothsAndMiceDamage]"
+  - guard: "[outOfTune] && [mothsAndMice] && [checkMothsAndMiceDamage]"
     result:
       text: naturalDamage
 
   ## Climate
-  - guard: "[keysUnevenFeel] and [downwardHangingKeys] and [tooHumid] and [optimumBrandPiano] == 'optimum'"
+  - guard: "[keysUnevenFeel] && [downwardHangingKeys] && [tooHumid] && [optimumBrandPiano] == 'optimum'"
     result:
       text: climateSystem
-  - guard: "[keysUnevenFeel] and [downwardHangingKeys] and [tooHumid] and ([optimumBrandPiano] == 'suboptimum' or [optimumBrandPiano] == 'other')"
+  - guard: "[keysUnevenFeel] && [downwardHangingKeys] && [tooHumid] && ([optimumBrandPiano] == 'suboptimum' || [optimumBrandPiano] == 'other')"
     result:
       text: airDeHumidifiers
 
   ## Rebushing
-  - guard: "[keysUnevenFeel] and [tooHighFriction] and [moveDownwardFix] == 'cleanupFrictionAndSolvedProblem'"
+  - guard: "[keysUnevenFeel] && [tooHighFriction] && [moveDownwardFix] == 'cleanupFrictionAndSolvedProblem'"
     result:
       text: selfFixReBushing
-  - guard: "[keysUnevenFeel] and [tooHighFriction] and [moveDownwardFix] == 'didntCleanup'"
+  - guard: "[keysUnevenFeel] && [tooHighFriction] && [moveDownwardFix] == 'didntCleanup'"
     result:
       text: reBushing
-  - guard: "[keysUnevenFeel] and [tooHighFriction] and [moveDownwardFix] == 'clearupFrictionDidntSolveProblem' and (not [tooHeavyOrLightFeel])"
+  - guard: "[keysUnevenFeel] && [tooHighFriction] && [moveDownwardFix] == 'clearupFrictionDidntSolveProblem' && (! [tooHeavyOrLightFeel])"
     result:
       text: callTechnician
 
   ## PTD
-  - guard: "[keysUnevenFeel] and [tooHighFriction] and [moveDownwardFix] == 'clearupFrictionDidntSolveProblem' and [tooHeavyOrLightFeel]"
+  - guard: "[keysUnevenFeel] && [tooHighFriction] && [moveDownwardFix] == 'clearupFrictionDidntSolveProblem' && [tooHeavyOrLightFeel]"
     result:
       text: PTD
-  - guard: "[keysUnevenFeel] and [keysUnevenSound] and [tooHeavyOrLightFeel]"
+  - guard: "[keysUnevenFeel] && [keysUnevenSound] && [tooHeavyOrLightFeel]"
     result:
       text: PTD
 
   ## Friction
-  - guard: "[keysUnevenFeel] and [keysUnevenSound] and [tooHighFriction]"
+  - guard: "[keysUnevenFeel] && [keysUnevenSound] && [tooHighFriction]"
     result:
       text: rePinning
 
   ## Touching Hammers
-  - guard: "[keysUnevenFeel] and [keysUnevenSound] and [grandPiano] == 'grand' and [touchingHammersGrand]"
+  - guard: "[keysUnevenFeel] && [keysUnevenSound] && [grandPiano] == 'grand' && [touchingHammersGrand]"
     result:
       text: touchingHammers
-  - guard: "[keysUnevenFeel] and [keysUnevenSound] and ([grandPiano] == 'upright') and [touchingHammersUpright]"
+  - guard: "[keysUnevenFeel] && [keysUnevenSound] && ([grandPiano] == 'upright') && [touchingHammersUpright]"
     result:
       text: touchingHammers
 
   ## Uneven Key Sounds Grand
-  - guard: "[keysUnevenSound] and [grandPiano] == 'grand' and (not [grandHangingDampers])"
+  - guard: "[keysUnevenSound] && [grandPiano] == 'grand' && (! [grandHangingDampers])"
     result:
       text: hangingDampers
-  - guard: "[keysUnevenSound] and [grandPiano] == 'grand' and [lostMotion]"
+  - guard: "[keysUnevenSound] && [grandPiano] == 'grand' && [lostMotion]"
     result:
       text: pedalSettingGrand
       
   ## Uneven Key Sounds Upright
-  - guard: "[keysUnevenSound] and [grandPiano] == 'upright' and [uprightHangingDampers]"
+  - guard: "[keysUnevenSound] && [grandPiano] == 'upright' && [uprightHangingDampers]"
     result:
       text: hangingDampers
-  - guard: "[keysUnevenSound] and [grandPiano] == 'upright' and [uprightPedalSetting]"
+  - guard: "[keysUnevenSound] && [grandPiano] == 'upright' && [uprightPedalSetting]"
     result:
       text: pedalSettingUpright
 
   ## Uneven Key Sound and Reverberation
-  - guard: "[keysUnevenSound] and [galm] and [grandPiano] == 'grand' and [lostMotion]"
+  - guard: "[keysUnevenSound] && [reverberation] && [grandPiano] == 'grand' && [lostMotion]"
     result:
       text: pedalSettingGrand
-  - guard: "[keysUnevenSound] and [galm] and [grandPiano] == 'upright' and [uprightPeddalSetting]"
+  - guard: "[keysUnevenSound] && [reverberation] && [grandPiano] == 'upright' && [uprightPeddalSetting]"
     result:
       text: pedalSettingUpright
 
   ## Reverberation and Pedal Setting
-  - guard: "[galm] and [grandPiano] == 'grand' and [lostMotion]"
+  - guard: "[reverberation] && [grandPiano] == 'grand' && [lostMotion]"
     result:
       text: pedalSettingGrand
-  - guard: "[galm] and [grandPiano] == 'upright' and [uprightPeddalSetting]"
+  - guard: "[reverberation] && [grandPiano] == 'upright' && [uprightPeddalSetting]"
     result:
       text: pedalSettingUpright
 
   ## Reverberation and Hanging Dampers
-  - guard: "[galm] and [grandPiano] == 'grand' and [grandHangingDampers]"
+  - guard: "[reverberation] && [grandPiano] == 'grand' && [grandHangingDampers]"
     result:
       text: hangingDampers
-  - guard: "[galm] and [grandPiano] == 'upright' and [uprightHangingDampers]"
+  - guard: "[reverberation] && [grandPiano] == 'upright' && [uprightHangingDampers]"
     result:
       text: hangingDampers
 
   ## Reverberation and Regulation of Action
-  - guard: "[galm] and ((not [grandPiano] == 'grand' ) or [lostMotion] or [grandHangingDampers]) and ((not [grandPiano] == 'upright' ) or [uprightPedalSetting] or [uprightHanginDampers]) and (not [damagedDampers])"
+  - guard: "[reverberation] && (( [grandPiano] != 'grand' ) || [lostMotion] || [grandHangingDampers]) && (( [grandPiano] != 'upright' ) || [uprightPedalSetting] || [uprightHanginDampers]) && (! [damagedDampers])"
     result:
       text: regulationOfTheAction
 
   ## Damaged Dampers
-  - guard: "[galm] and [damagedDampers]"
+  - guard: "[reverberation] && [damagedDampers]"
     result:
       text: brokenAndMissingDampers
+
+  # ## falsifying rules
+  # -guard: "[grandPiano] == 'grand'"
+  #  result:
+  #    text: (not [])
