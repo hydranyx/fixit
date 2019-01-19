@@ -1,4 +1,5 @@
 #![feature(proc_macro_hygiene, decl_macro)]
+use std::env;
 
 use inference_engine::{self, Atom, Question};
 use rocket::http::RawStr;
@@ -124,8 +125,10 @@ fn not_found(req: &Request) -> Template {
 }
 
 fn rocket() -> rocket::Rocket {
+    let port = env::var("PORT").unwrap_or("8000".to_string());
+    let port = port.parse().unwrap();
     let mut config = rocket::ignite().config().clone();
-    config.set_port();
+    config.set_port(port);
     rocket::custom(config)
         .mount("/", routes![redirect, index, consult]) // Attach the routes specified above.
         .mount("/static", StaticFiles::from("assets/static"))
