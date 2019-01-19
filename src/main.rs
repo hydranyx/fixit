@@ -37,9 +37,8 @@ impl<'f> FromFormValue<'f> for Context {
                 let mut atoms = Vec::new();
                 let mut selected_answers = Vec::new();
 
-                println!("{}", context);
                 for pairs in context.split(',') {
-                    let mut iter = pairs.split(':').filter(|&w| w != "").peekable();
+                    let mut iter = pairs.split(':').filter(|&w| w != "");
                     let atom = iter.next();
                     let answer = iter.next();
 
