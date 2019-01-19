@@ -14,6 +14,7 @@ use std::collections::HashMap;
 #[derive(Serialize)]
 struct TemplateContext {
     atom: Option<String>,
+    description: Option<String>,
     question: Option<String>,
     answers: Vec<String>,
     context: Option<Context>,
@@ -111,6 +112,7 @@ fn consult(context: Option<Context>, debug: Option<bool>) -> Template {
         let template_context = TemplateContext {
             atom: Some(question.atom.text),
             question: Some(question.text),
+            description: Some(question.description),
             answers,
             context,
             debug,

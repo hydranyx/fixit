@@ -2,6 +2,7 @@
 
 {% block question %}
 <h3 class="splash-subhead">{{question}}</h3>
+<h4 class="splash-subhead">{{description}}</h4>
 <form>
   {% for answer in answers %}
   {% if context %}
