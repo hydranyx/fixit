@@ -12,4 +12,7 @@
   {% endif %}
   {% endfor %}
 </form>
+{% if debug %}
+<h4> Debug printing </h4>
+{% endif %}
 {% endblock question %}

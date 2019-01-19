@@ -17,6 +17,7 @@ struct TemplateContext {
     question: Option<String>,
     answers: Vec<String>,
     context: Option<Context>,
+    debug: bool,
 }
 
 #[derive(Serialize, Debug, Default)]
@@ -100,14 +101,18 @@ fn index() -> Template {
     Template::render("index", &map)
 }
 
-#[get("/consult?<context>")]
-fn consult(context: Option<Context>) -> Template {
+#[get("/consult?<context>&<debug>")]
+fn consult(context: Option<Context>, debug: Option<bool>) -> Template {
+    // If `debug` is not provided the value is `false`.
+    let debug = debug.unwrap_or_default();
+
     if let Some((question, answers)) = get_next_question(&context) {
         let template_context = TemplateContext {
             atom: Some(question.atom.text),
             question: Some(question.text),
             answers,
             context,
+            debug,
         };
         Template::render("question", &template_context)
     } else {
