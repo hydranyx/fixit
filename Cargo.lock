@@ -379,6 +379,9 @@ dependencies = [
 name = "indexmap"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "serde 1.0.84 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "indicatif"
@@ -395,10 +398,11 @@ dependencies = [
 [[package]]
 name = "inference_engine"
 version = "0.1.0"
-source = "git+https://gitlab.com/jordis1002/inference_engine#389df758bcf009a1d332b3509f36aaf02e4cb4fe"
+source = "git+https://gitlab.com/jordis1002/inference_engine#95a6dc3b46b2f7ec48b537cbad1e54c605aff9d6"
 dependencies = [
  "dialoguer 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "eval 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "indexmap 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "indicatif 0.10.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "pest 2.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
