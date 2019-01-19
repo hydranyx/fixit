@@ -3,6 +3,6 @@
     "public": true,
     "alias": ["fixit.now.sh"],
     "features": {
-      "cloud": "v2"
+      "cloud": "v1"
     }
 }
