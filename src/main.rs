@@ -124,7 +124,9 @@ fn not_found(req: &Request) -> Template {
 }
 
 fn rocket() -> rocket::Rocket {
-    rocket::ignite()
+    let mut config = rocket::ignite().config().clone();
+    config.set_port();
+    rocket::custom(config)
         .mount("/", routes![redirect, index, consult]) // Attach the routes specified above.
         .mount("/static", StaticFiles::from("assets/static"))
         .attach(Template::fairing()) // Attach the fairing that automagically reads the templates.
