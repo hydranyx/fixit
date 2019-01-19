@@ -5,7 +5,7 @@
 <form>
   {% for answer in answers %}
   {% if context %}
-  <a href="/consult?context={% for atom in context.atoms %}{{atom}}:{{context.selected_answers[loop.index0]}} {% endfor %}{{atom}}:{{answer}}"
+  <a href="/consult?context={% for atom in context.atoms %}{{atom}}:{{context.selected_answers[loop.index0]}},{% endfor %}{{atom}}:{{answer}}"
      class="pure-button pure-button-primary">{{answer}}</a>
   {% else %}
   <a href="/consult?context={{atom}}:{{answer}}" class="pure-button pure-button-primary">{{answer}}</a>
