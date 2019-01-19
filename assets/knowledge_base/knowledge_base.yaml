@@ -1,0 +1,294 @@
+---
+inferences:
+  - atom:
+      text: touchingHammers
+    text: The diagnose is that hammers are touching. The advise is to call a technician to fix the hammering.
+  - atom:
+      text: rePinning
+    text: The turning point turns too heavy. Call a piano technician because the piano needs a re-pinning.
+  - atom:
+      text: brokenAndMissingDampers
+    text: "The damper's are or damper is broken and possibly missing. there need to be replacements for the damaged parts and this can only be done by a piano technician. The advice is to contact one."
+  - atom:
+      text: callTechnician
+    text: The advise is to call a piano technician because simply a tuning will not fix the problem. Someone only equipped and hired to tune is not able to improve the situation.
+  - atom:
+      text: callSalesman
+    text: "Your piano is old and the quality decreased to such a degree that the best advice is to sell the instrument or donate it to a good cause that does not care about the bad sound. The advice is to get an opinion on the remaining worth of the instrument, by an expert in sales of pianos"
+  - atom:
+      text: regulationOfTheAction
+    text: After ruling out that it might be a caused by damper or pedal failures there is a good chance that the complaint is caused by ??? Call a piano technician to fix the regulation of the action.
+  - atom:
+      text: generalRepair
+    text: Your instrument is old but of a valuable type. Call a technician to get an opinion on whether it is worth doing a general repair on the piano
+  - atom:
+      text: humidifier
+    text: The room the instrument resides in is too dry. Your instrument can benefit from a humidifier. A humidifier costs about 150 EUR.
+  - atom:
+      text: acclimatize
+    text: You need to acclimatize the instrument for about 2 weeks since it recently has been through an environmental change of circumstances. After this normalization your piano probably still is out of tune so advised it is to call a tuner.
+  - atom:
+      text: pedalSettingUpright
+    text: "It was the setting of the pedal. Congratulations, you fixed the problem yourself"
+  - atom:
+      text: reBushing
+    text: The instructions did not help. The problem of the friction in the key can only be resolved by re-bushing the piano and for that you need a piano technician. Call one.
+  - atom:
+      text: PTD
+    text: The problem seems to be all about the touch being an unfortunate feel. The solution to clear that up would be to perform a Precision Touch Design or PTD however not all technicians are able to perform such an operation. Try to find a technician who can.
+  - atom:
+      text: callTuner
+    text: The advice is to call a tuner.
+  - atom:
+      text: pedalSettingGrand
+    text: "The problem is most likely the pedal setting. If you can see a regulation bolt at the end of the piano rod, try to turn it clockwise and check the results of the adjustments. If a few clockwise twists do not resolve the complaints you need a technician to help adjust the settings. So the final advice is to call a technician."
+  - atom:
+      text: climateSystem
+    text: You have a valuable instrument that would benefit from a climate system because the reason your piano is out of tune is the climate change that it has recently been through. A climate system is about 650 EUR.
+  - atom:
+      text: hangingDampers
+    text: There is a legitimate reason to believe that the problem is that your instrument has hanging dampers. The advise is to call a piano technician.
+  - atom:
+      text: selfFixReBushing
+    text: Congratulations you fixed the problem by resolving the friction! However if the problem returns call a technician.
+  - atom:
+      text: airDeHumidifiers
+    text: The air in the room is too humid. If it is not possible to relocate the piano in a less humid room one is advised to find a way to make the room less humid. The quality of the piano will probably decrease if the circumstances of the environment do not change. Simple tuning the piano will not solve the problem because in a short period the piano will be out of tune again. A possible decrease for the problem would be to get air dehumidifiers for the room.
+  - atom:
+      text: waterBottle
+    text: "The room your instrument resides in is too dry. Open the lower lid of your piano and inside the piano, mostly on the right there is space to place 1 or more open bottles filled with water. This will humidify the inside of the piano. Check after a period whether you need to refill the bottles with more water."
+  - atom:
+      text: naturalDamage
+    text: "The piano has been damaged by either water, mold, rust, moths or mice and this is noticeably a problem. The repairs can only been done by a piano technician so the advise is to call one."
+conditionals:
+  - guard: "[outOfTune] and [mothsAndMice] and [checkMothsAndMiceDamage]"
+    result:
+      text: naturalDamage
+  - guard: "[outOfTune] and [damageDueToNature]"
+    result:
+      text: naturalDamage
+  - guard: "[outOfTune] and [agePiano] < 30 and [previousTuning] >=6"
+    result:
+      text: callTuner
+  - guard: "[outOfTune] and [recentlyMoved]"
+    result:
+      text: acclimatize
+  - guard: "[outOfTune] and [agePiano] < 2 and [previousTuning] <6"
+    result:
+      text: callTuner
+  - guard: "[keysUnevenFeel] and [keysUnevenSound] and [tooHeavyOrLightFeel]"
+    result:
+      text: PTD
+  - guard: "[keysUnevenFeel] and [keysUnevenSound] and [tooHighFriction]"
+    result:
+      text: rePinning
+  - guard: "[galm] and [damagedDampers]"
+    result:
+      text: brokenAndMissingDampers
+questions:
+  - atom:
+      text: damagedDempers
+    text: "instruction: open the upper lid, push down and release right pedal, while you look if all dampers are connected to the strings.Question: are there any damaged or missing dampers photo of working damper?"
+    choices:
+      - "No"
+      - "Yes"
+    description: ()
+  - atom:
+      text: grandHangingDampers
+    text: "instruction: look at the dampers inside piano, push down right pedal and check if all dampers image pressed damper grand move up in line together. Question: are they moving up in line together?  some are lagging or do not touch the strings anymore"
+    choices:
+      - "Yes"
+      - "No"
+    description: (in case of no we have the problem of hanging dampers)
+  - atom:
+      text: dryBudgetOptimum
+    text: What is your budget for solving the problem?
+    choices:
+      - 150 EUR
+      - 650 EUR
+    description: "(keep in mind: higher price gives better solution which in case of an expensive instrument gives better protection to losing quality)"
+  - atom:
+      text: grandPiano
+    text: What type of piano is it?
+    choices:
+      - upright
+      - grand
+    description: (example picture uprights vs grands)
+  - atom:
+      text: galm
+    text: "After letting go the keys, the sound won't stop/mute?"
+    choices:
+      - "No"
+      - "Yes"
+    description: "(galm, geluid klinkt door/ dempt niet)"
+  - atom:
+      text: tooHumid
+    text: Might it be possible that the room in which the instrument resides be too humid?
+    choices:
+      - "No"
+      - "Yes"
+    description: (if Yes ask what type of piano)
+  - atom:
+      text: moveDownwardFix
+    text: "instruction for possible fix: Move key up and downward while you either press to the left side or to the right side. Do both sides. Question: Did the friction clear up and solve the problem?"
+    choices:
+      - Yes the friction cleared up and solved the problem
+      - Yes the friction cleared up but did not solve the problem
+      - No the friction did not clear up
+    description: ()
+  - atom:
+      text: tooHighFriction
+    text: Is there a too high of a friction while pressing the keys?
+    choices:
+      - "No"
+      - "Yes"
+    description: (but no sound issues)
+  - atom:
+      text: oldPiano
+    text: Is your piano approximately 30 years or older?
+    choices:
+      - "No"
+      - "Yes"
+    description: ()
+  - atom:
+      text: checkMothsAndMiceDamage
+    text: "instruction: if you have an upright piano open up upper lid and look at the felt. If you have a grand piano just look inside at the felt of the piano. Question: Do you see damage with this felt?"
+    choices:
+      - "No"
+      - "Yes"
+    description: ()
+  - atom:
+      text: previousTuning
+    text: How long ago has it been since the previous tuning?
+    choices:
+      - "<4 months"
+      - "<6 months"
+      - ">= 6 months"
+    description: ()
+  - atom:
+      text: recentlyMoved
+    text: Has the piano recently been moved?
+    choices:
+      - "No"
+      - "Yes"
+    description: ()
+  - atom:
+      text: uprightPedalSetting
+    text: "instruction: open lower board, give vleugelmoer A twist to the left and check sound. Question: Did the sound improve?"
+    choices:
+      - "No"
+      - "Yes"
+    description: "(Yes: het was de pedaal afstelling, No then check if damper is missing or damaged in case it has not been done yet)"
+  - atom:
+      text: dryBudgetSubOptimumUpright
+    text: What is your budget for solving the problem?
+    choices:
+      - "2,-"
+      - "150,-"
+    description: "(in case of low upright advice is automatically 2,-)"
+  - atom:
+      text: optimumBrandPiano
+    text: What is your brand?
+    choices:
+      - optimum or suboptimum
+      - other
+    description: "(Optimum: Steinway, Bechstein, Boesendorfer, Fazioli, Steingraeber.  Suboptimum Ibach, Grotrian-Steinweg, Seiler, Sauter, Theurmer, Pfeiffer)"
+  - atom:
+      text: newPiano
+    text: Is your piano less then 2 years old?
+    choices:
+      - "No"
+      - "Yes"
+    description: ()
+  - atom:
+      text: damageDueToNature
+    text: "instruction: open up the piano and look inside at various places. Question: Is there a visible water damage, mold or rust?"
+    choices:
+      - "No"
+      - "Yes"
+    description: ()
+  - atom:
+      text: uprightHanginDempers
+    text: "instruction: open the upper lid, push down and release right pedal, while you look if all dampers are connected to the strings. Question: are they moving up in line together?"
+    choices:
+      - "Yes"
+      - "No"
+    description: "(some are lagging, do not touch the strings anymore or damaged)"
+  - atom:
+      text: lostMotion
+    text: "instruction: look inside the piano at the dampers. While you are doing that put your foot on the pedal and press the pedal slightly downwards. Question: Did you see any response in the form of movement of the dampers directly after you interacted with the pedal?"
+    choices:
+      - "Yes"
+      - "No"
+    description: (if the answer is yes then there is lost motion and then the problem is grandPedalSetting)
+  - atom:
+      text: mothsAndMice?
+    text: Did or do you have moths and/or mice that you are aware of?
+    choices:
+      - "No"
+      - "Yes"
+    description: ()
+  - atom:
+      text: downwardHangingKeys
+    text: There is or are some keys that are hanging half in the downward direction?
+    choices:
+      - "Yes"
+      - "No"
+    description: (picture for description)
+  - atom:
+      text: roomTooCold
+    text: Is the room too warm or too cold?
+    choices:
+      - warm
+      - cold
+    description: "(too warm: >40 Celcius or if it feels too humid in the room, too cold: <6 Celcius, then too dry)"
+  - atom:
+      text: touchingHammersGrand
+    text: "instruction: look inside the piano and see whether there are two hammers that are touching. Question: are they?"
+    choices:
+      - "No"
+      - "Yes"
+    description: (photo with description of two hammers touching)
+  - atom:
+      text: tooHeavyOrLightFeel
+    text: Do some keys feel to heavy and/or to light in touch?
+    type: float
+    choices:
+      - "Yes"
+      - "No"
+    description: (ask question after the other sections if possible for a clearer result)
+  - atom:
+      text: outOfTune
+    text: Is the piano entirely out of tune?
+    choices:
+      - "No"
+      - "Yes"
+    description: "(every section does not sound well, bass  middle  treble)"
+  - atom:
+      text: keysUnevenSound
+    text: Do the keys have an uneven sound?
+    choices:
+      - "No"
+      - "Yes"
+    description: "(either all or some are not 'aansluitend' adjoint/ subsequently in quality of sound and loudness)"
+  - atom:
+      text: keysUnevenFeel
+    text: Does the touch of some keys not feel right or even?
+    choices:
+      - "No"
+      - "Yes"
+    description: (possible friction in movement or an uncomfortable weight of the keys)
+  - atom:
+      text: touchingHammersUpright
+    text: "instruction: open the upper lid and see whether two happens are touching. Question: Are they?"
+    choices:
+      - "No"
+      - "Yes"
+    description: ()
+  - atom:
+      text: climateUncontinuous
+    text: Is the climate in the room the piano resides in continuous/unchanged with respect to temperature and humidity?
+    choices:
+      - "Yes"
+      - "No"
+    description: ()
