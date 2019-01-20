@@ -296,10 +296,10 @@ conditionals:
   - guard: "[outOfTune] && [optimumBrandPiano] == 'other' && [agePiano] >= 30 && [previousTuning] == '<6 months'"
     result:
       text: callSalesman
-  - guard: "[outOfTune] && [optimumBrandPiano] == 'optimum' || [optimumBrandPiano] == 'suboptimum' && [agePiano] >=30 && [previousTuning] == '<6 months'"
+  - guard: "[outOfTune] && ( [optimumBrandPiano] == 'optimum' || [optimumBrandPiano] == 'suboptimum' ) && [agePiano] >= 30 && [previousTuning] == '<6 months'"
     result:
       text: generalRepair
-  - guard: "[outOfTune] && [agePiano] < 30 && [previousTuning] == '> || equal to 6 months'"
+  - guard: "[outOfTune] && [agePiano] > 30 && [previousTuning] == '> or equal to 6 months'"
     result:
       text: callTuner
   - guard: "[outOfTune] && [agePiano] < 2 && [previousTuning] == '<6 months'"
@@ -449,8 +449,3 @@ conditionals:
   - guard: "[reverberation] && [damagedDampers]"
     result:
       text: brokenAndMissingDampers
-
-  # ## falsifying rules
-  # -guard: "[grandPiano] == 'grand'"
-  #  result:
-  #    text: (not [])
