@@ -248,7 +248,7 @@ inferences:
     text: The advice is to call a tuner.
   - atom:
       text: callTechnician
-    text: The advise is to call a piano technician because simply a tuning will not fix the problem. Someone only equipped and hired to tune is not able to improve the situation.
+    text: The advice is to call a piano technician because simply a tuning will not fix the problem. Someone only equipped and hired to tune is not able to improve the situation.
   - atom:
       text: callSalesman
     text: "Your piano is old and the quality decreased to such a degree that the best advice is to sell the instrument or donate it to a good cause that does not care about the bad sound. The advice is to get an opinion on the remaining worth of the instrument, by an expert in sales of pianos"
@@ -274,12 +274,12 @@ inferences:
     text: The air in the room is too humid. If it is not possible to relocate the piano in a less humid room one is advised to find a way to make the room less humid. The quality of the piano will probably decrease if the circumstances of the environment do not change. Simple tuning the piano will not solve the problem because in a short period the piano will be out of tune again. A possible decrease for the problem would be to get air dehumidifiers for the room.
   - atom:
       text: naturalDamage
-    text: "The piano has been damaged by either water, mold, rust, moths or mice and this is noticeably a problem. The repairs can only been done by a piano technician so the advise is to call one."
+    text: "The piano has been damaged by either water, mold, rust, moths or mice and this is noticeably a problem. The repairs can only been done by a piano technician so the advice is to call one."
 
   ## Uneven Key Sounds Advice
   - atom:
       text: hangingDampers
-    text: There is a legitimate reason to believe that the problem is that your instrument has hanging dampers. The advise is to call a piano technician.
+    text: There is a legitimate reason to believe that the problem is that your instrument has hanging dampers. The advice is to call a piano technician.
   - atom:
       text: pedalSettingUpright
     text: "It was the setting of the pedal. Congratulations, you fixed the problem yourself"
@@ -301,7 +301,7 @@ inferences:
   ## Uneven key feel and key sound advice
   - atom:
       text: touchingHammers
-    text: The diagnose is that hammers are touching. The advise is to call a technician to fix the hammering.
+    text: The diagnose is that hammers are touching. The advice is to call a technician to fix the hammering.
   - atom:
       text: rePinning
     text: The turning point turns too heavy. Call a piano technician because the piano needs a re-pinning.
