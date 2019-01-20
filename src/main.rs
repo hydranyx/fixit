@@ -1,7 +1,7 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 use std::env;
 
-use inference_engine::{self, Atom, Question};
+use inference_engine::{self, Atom, Inference, Question};
 use rocket::http::RawStr;
 use rocket::request::FromFormValue;
 use rocket::response::Redirect;
@@ -83,14 +83,10 @@ fn get_next_question(context: &Option<Context>) -> Option<(Question, Vec<String>
     }
 }
 
-fn get_answer(context: &Option<Context>) -> Option<String> {
+fn get_answer(context: &Option<Context>) -> Option<Inference> {
     let inference_engine = create_inference_engine(context);
 
-    if let Some(answer) = inference_engine.reached_goal() {
-        Some(answer.text)
-    } else {
-        None
-    }
+    inference_engine.reached_goal()
 }
 
 #[get("/")]
@@ -122,7 +118,12 @@ fn consult(context: Option<Context>, debug: Option<bool>) -> Template {
         Template::render("question", &template_context)
     } else {
         let mut template_context = HashMap::new();
-        template_context.insert("answer", get_answer(&context));
+        let (text, atom) = match get_answer(&context) {
+            Some(answer) => (Some(answer.text), Some(answer.atom.text)),
+            None => (None, None),
+        };
+        template_context.insert("answer", text);
+        template_context.insert("atom", atom);
         Template::render("done", &template_context)
     }
 }
