@@ -49,7 +49,8 @@ questions:
       text: agePiano
     text: How old is your piano (in years)
     choices:
-      - 2
+      - 1
+      - 5
       - 30
       - 35 ## TODO Change to <2 < 30 and > or equal to 30
     description: "Choose the closest age."
@@ -73,7 +74,7 @@ questions:
       - Yes
       - No
     description: "If some are lagging or do not touch the strings anymore, the answer is No."
-    picture: ""
+    picture: "http://www.pianoworld.com/Buying_A_Piano/acousticintro2_files/RennerAction.jpg"
   - atom:
       text: uprightHangingDampers
     text: "instruction: open the upper lid, push down and release right pedal, while you look if all dampers are connected to the strings. Question: are they moving up in line together?"
@@ -81,7 +82,7 @@ questions:
       - Yes
       - No
     description: " If some are lagging and do not touch the strings anymore or are damaged, the answer is No."
-    picture: ""
+    picture: "https://infovisual.info/storage/app/media/04/img_en/025%20Upright%20piano%20action.jpg"
   - atom:
       text: damagedDampers
     text: "Instruction: open the upper lid, push down and release right pedal, while you look if all dampers are connected to the strings. Question: Are there any damaged or missing dampers?"
@@ -89,7 +90,7 @@ questions:
       - Yes
       - No
     description: ""
-    picture: ""
+    picture: "http://www.yorkshirepianos.com/img/bigs/FIG-3.jpg"
 
   ## Question Pedal
   - atom:
@@ -148,17 +149,10 @@ questions:
       text: dryBudgetOptimum
     text: What is your budget for solving the problem?
     choices:
+      - 2 EUR
       - 150 EUR
       - 650 EUR
     description: "Keep in mind: higher price gives better solution which in case of an expensive instrument gives better protection against losing quality of the instrument."
-    picture: ""
-  - atom:
-      text: dryBudgetSubOptimumUpright
-    text: What is your budget for solving the problem?
-    choices:
-      - 2 EUR
-      - 150 EUR
-    description: ""
     picture: ""
   - atom:
       text: damageDueToNature
@@ -167,7 +161,7 @@ questions:
       - Yes
       - No
     description: ""
-    picture: ""
+    picture: "http://www.ackermanspiano.com/files/Restoration/Krispy/SohmerBefore__2_.jpg"
   - atom:
       text: mothsAndMice
     text: Did or do you have moths and/or mice that you are aware of?
@@ -188,12 +182,12 @@ questions:
   ## Question Uneven Key Feel
   - atom:
       text: downwardHangingKeys
-    text: There are some keys that are hanging half in the downward direction?
+    text: There are some keys that are half depressed?
     choices:
       - true
       - false
     description: ""
-    picture: ""
+    picture: "https://www.thepiano.sg/sites/thepiano.sg/files/styles/read_article_main_picture/public/thepiano_images/read/2016/09/26/20/22/sticky-piano-keys.jpg"
   - atom:
       text: tooHumid
     text: Might it be possible that the room in which the instrument resides is too humid?
@@ -235,7 +229,7 @@ questions:
     choices:
       - Yes
       - No
-    description: photo with description of two hammers touching
+    description: ""
     picture: ""
   - atom:
       text: touchingHammersUpright
@@ -243,7 +237,7 @@ questions:
     choices:
       - Yes
       - No
-    description: photo of two hammers touching
+    description: ""
     picture: ""
 
 # INFERENCES/GOALS
@@ -341,10 +335,10 @@ conditionals:
 
 
   ## Climate Too Cold Grand Optimum/Suboptimum 650/150
-  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'grand' && ([optimumBrandPiano] == 'optimum' || [optimumBrandPiano] == 'suboptimum') && [dryBudgetOptimum] == 150)"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'grand' && ([optimumBrandPiano] == 'optimum' || [optimumBrandPiano] == 'suboptimum') && [dryBudgetOptimum] == '150 EUR')"
     result:
       text: humidifier
-  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] == 'cold' && [grandPiano] == 'grand' && ([optimumBrandPiano] == 'optimum]' || [optimumBrandPiano] == 'suboptimum') && [dryBudgetOptimum] == 650"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] == 'cold' && [grandPiano] == 'grand' && ([optimumBrandPiano] == 'optimum]' || [optimumBrandPiano] == 'suboptimum') && [dryBudgetOptimum] == '650 EUR'"
     result:
       text: climateSystem
 
@@ -354,18 +348,18 @@ conditionals:
       text: humidifier
 
   ## Climate Too Cold Upright Optimum  
-  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'upright' && [optimumBrandPiano] == 'optimum' && [dryBudgetOptimum] == 650"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'upright' && [optimumBrandPiano] == 'optimum' && [dryBudgetOptimum] == '650 EUR'"
     result:
       text: climateSystem
-  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano]=='upright' && [optimumBrandPiano] == 'optimum' && [dryBudgetOptimum] == 150"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano]=='upright' && [optimumBrandPiano] == 'optimum' && [dryBudgetOptimum] == '150 EUR'"
     result:
       text: humidifier
 
   ## Climate Too Cold Upright Suboptimum && Other
-  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] == 'cold' && [grandPiano] == 'upright' && [optimumBrandPiano] == 'suboptimum' && [dryBudgetSubOptimumUpright] == 150"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] == 'cold' && [grandPiano] == 'upright' && [optimumBrandPiano] == 'suboptimum' && [dryBudgetOptimum] == '150 EUR'"
     result:
       text: humidifier
-  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'upright' && [optimumBrandPiano] == 'suboptimum' && [dryBudgetSubOptimumUpright] == 2"
+  - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'upright' && [optimumBrandPiano] == 'suboptimum' && [dryBudgetOptimum] == '2 EUR'"
     result:
       text: waterBottle
   - guard: "[outOfTune] && [climateUncontinuous] && [roomTooCold] && [grandPiano] == 'upright' && [optimumBrandPiano] == 'other'"
