@@ -398,7 +398,7 @@ dependencies = [
 [[package]]
 name = "inference_engine"
 version = "0.1.0"
-source = "git+https://gitlab.com/jordis1002/inference_engine#7a45fafa090c751c233056f4ca83c0740c084603"
+source = "git+https://gitlab.com/jordis1002/inference_engine#7abe8e83be396299322d089e660458b1873e06c9"
 dependencies = [
  "dialoguer 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "eval 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
