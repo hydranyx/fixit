@@ -13,6 +13,11 @@
   {% endif %}
   {% endfor %}
 </form>
+{% if picture %}
+<div style="position: relative; left: 25%; top:10%">
+<img class="pure-img" src={{picture}} style="width: 50%">
+</div>
+{% endif %}
 {% if debug %}
 <h4> Debug printing </h4>
 {% endif %}
